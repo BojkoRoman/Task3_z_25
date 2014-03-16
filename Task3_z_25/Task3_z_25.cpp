@@ -5,61 +5,79 @@
 * Ввести з клавіатури послідовність речень. На основі розробленої функції надруку¬вати введені речення зі зворотним порядком слів.)
 *Copyright 2014 by Roman Bojko
 */
-#include<iostream>
-#include <string.h>
+#include <iostream>
 using namespace std;
+void reverse(char* sentence);
 int main()
 {
 	setlocale(LC_ALL, "Ukrainian");
-	cout <<"Програма яка формує з заданого речення нове зi зворотним порядком слiв"<<endl;
-	for( int i = 0; i < 80; ++i)
+	cout <<"Програма яка формує з заданого речення нове з інверсним порядком слів"<<endl;
+	for(int i = 0; i < 70; ++i)
 	{
 		cout <<"-";
 	}
+	cout<<endl;
 	int n = 0;
 	do
 	{
-		cout << "\nВведіть кiлькiсть рядкiв: ";
+		cout << "Введіть кількість рядків: ";
 		cin >> n;
 	}
 	while(n <= 0);
-	if( n == 0 || n == 1){
-		cout << "Введiть свiй рядок:" << endl;
+	if( n == 0 || n == 1)
+	{
+		cout << "Введіть свій рядок:" << endl;
 
-	}else{
-		cout << "Введiть вашi рядки:" << endl;
+	}else
+	{
+		cout << "Введіть ваші рядки:" << endl;
 	}
+	cin.clear(); 
+	cin.sync();
 
-
-	cin.clear(); /**< Ця функція відновлює потік, якщо є помилка*/ 
-	cin.sync(); /**< Очищається потік від наявних у ньому символів*/
-
-	char **lines = new char*[n]; /**< Виділення пам’яті для масиву вказівників на n рядків*/
+	char* sentence = new char[256];
+	
 	for(int i = 0; i < n; i++)
 	{
-		lines[i] = new char[256]; /**< Виділення пам’яті для кожного рядка масиву*/
-		cin.getline( lines[i], 256 );
-	}
-	cout <<"-------------"<<endl;
-	cout <<"Результат :"<<endl;
-	
-	for( int i = 0; i < n; i++ ) 
-	{	
-
-		_strrev(*lines);
+        cin.getline(sentence, 256);
 		cout <<"-------------"<<endl;
-		cout << lines[i] << endl;
+		cout <<"Результат :"<<endl;
+		reverse(sentence);
 		cout <<"-------------"<<endl;
-		
+		cout <<"Введіть наступний рядок"<<endl;
 		
 	}
-	
-	for( int i = 0; i < n; i++ )
-		delete[] lines[i]; /**< Звільнення пам’яті від кожного рядка*/
-	delete[] lines; /**< Звільнення пам’яті від масиву вказівників*/
 
+	    
+	
 
 	system("pause");
-	return 0;
+    delete[] sentence; 
 }
+void reverse(char* sentence)
+{
+    int index = strlen(sentence) - 1,hold,last = '\0';
+    while (index >= 0)
+    {
+		while (index>=0 && sentence[index] != ' ')
+        index--;
 
+		hold = index - 1;
+
+		index++;
+		while (sentence[index] != last)
+		{
+			cout << sentence[index]; 
+            index++;
+        }
+
+		last = ' '; 
+        index = hold; 
+        
+		if(index >= 0)
+		{
+			cout<<" ";
+		}
+	}
+	cout<<endl;
+}
